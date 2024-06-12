@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UserManagement.Data;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
 
 namespace UserManagement.Services.Domain.Implementations;
 
-public class UserService : IUserService
+public class UserService(IDataContext dataAccess) : IUserService
 {
-    private readonly IDataContext _dataAccess;
-    public UserService(IDataContext dataAccess) => _dataAccess = dataAccess;
 
     /// <summary>
     /// Return users by active state
@@ -18,8 +16,10 @@ public class UserService : IUserService
     /// <returns></returns>
     public IEnumerable<User> FilterByActive(bool isActive)
     {
-        throw new NotImplementedException();
+        var test = dataAccess.GetAll<User>();
+
+        return test.Where(x => x.IsActive == isActive);
     }
 
-    public IEnumerable<User> GetAll() => _dataAccess.GetAll<User>();
+    public IEnumerable<User> GetAll() => dataAccess.GetAll<User>();
 }

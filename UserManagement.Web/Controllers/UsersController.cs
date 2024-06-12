@@ -1,32 +1,36 @@
 ﻿using System.Linq;
+using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
 
 namespace UserManagement.WebMS.Controllers;
 
 [Route("users")]
-public class UsersController : Controller
+public class UsersController(IUserService userService) : Controller
 {
-    private readonly IUserService _userService;
-    public UsersController(IUserService userService) => _userService = userService;
-
     [HttpGet]
-    public ViewResult List()
+    public ViewResult List(bool? isActive)
     {
-        var items = _userService.GetAll().Select(p => new UserListItemViewModel
-        {
-            Id = p.Id,
-            Forename = p.Forename,
-            Surname = p.Surname,
-            Email = p.Email,
-            IsActive = p.IsActive
-        });
+        IEnumerable<UserListItemViewModel> items;
 
-        var model = new UserListViewModel
+        if (isActive.HasValue)
         {
-            Items = items.ToList()
-        };
+            items = userService.FilterByActive(isActive.Value).Select(MapToViewModel);
+        }
+        else
+        {
+            items = userService.GetAll().Select(MapToViewModel);
+        }
 
-        return View(model);
+        return View(new UserListViewModel { Items = items.ToList() });
     }
+
+    private static UserListItemViewModel MapToViewModel(User user) => new()
+    {
+        Id = user.Id,
+        Forename = user.Forename,
+        Surname = user.Surname,
+        Email = user.Email,
+        IsActive = user.IsActive
+    };
 }
