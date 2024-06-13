@@ -12,4 +12,8 @@
     <ProjectReference Include="..\UserManagement.Services\UserManagement.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\boxicons\2.1.4\" />
+  </ItemGroup>
+
 </Project>

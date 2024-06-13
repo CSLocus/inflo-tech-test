@@ -9,7 +9,7 @@ namespace UserManagement.WebMS.Controllers;
 public class UsersController(IUserService userService) : Controller
 {
     [HttpGet]
-    public ViewResult List(bool? isActive)
+    public ViewResult List(bool? isActive = null)
     {
         IEnumerable<UserListItemViewModel> items;
 
@@ -22,6 +22,8 @@ public class UsersController(IUserService userService) : Controller
             items = userService.GetAll().Select(MapToViewModel);
         }
 
+        ViewBag.IsActive = isActive;
+
         return View(new UserListViewModel { Items = items.ToList() });
     }
 
@@ -31,6 +33,7 @@ public class UsersController(IUserService userService) : Controller
         Forename = user.Forename,
         Surname = user.Surname,
         Email = user.Email,
-        IsActive = user.IsActive
+        IsActive = user.IsActive,
+        DateOfBirth = user.DateOfBirth,
     };
 }
