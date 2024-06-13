@@ -8,15 +8,14 @@ namespace UserManagement.Services.Domain.Implementations;
 
 public class UserService(IDataContext dataAccess) : IUserService
 {
-
-    /// <summary>
-    /// Return users by active state
-    /// </summary>
-    /// <param name="isActive"></param>
-    /// <returns></returns>
     public IEnumerable<User> FilterByActive(bool isActive)
     {
         return dataAccess.GetAll<User>().Where(x => x.IsActive == isActive);
+    }
+
+    public User? GetUserById(int id)
+    {
+        return dataAccess.GetAll<User>().Where(x => x.Id == id).FirstOrDefault();
     }
 
     public IEnumerable<User> GetAll() => dataAccess.GetAll<User>();

@@ -20,3 +20,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.form-check-input[type=checkbox]:not(:checked) {
+    background-image: url(../svg/unchecked_white.svg);
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.custom-checkbox {
+    margin-top: 0px;
+    height: 38px;
+    width: 100%
+}

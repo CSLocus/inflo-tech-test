@@ -27,6 +27,29 @@ public class UsersController(IUserService userService) : Controller
         return View(new UserListViewModel { Items = items.ToList() });
     }
 
+    [HttpGet("{userId}")]
+    public ViewResult ViewUser(int userId)
+    {
+        var user = userService.GetUserById(userId);
+
+        if (user is null)
+        {
+            return View("404");
+        }
+
+        var userViewModel = new UserViewModel()
+        {
+            Id = user.Id,
+            Forename = user.Forename,
+            Surname = user.Surname,
+            Email = user.Email,
+            IsActive = user.IsActive,
+            DateOfBirth = user.DateOfBirth,
+        };
+
+        return View(userViewModel);
+    }
+
     private static UserListItemViewModel MapToViewModel(User user) => new()
     {
         Id = user.Id,
