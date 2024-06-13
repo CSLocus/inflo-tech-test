@@ -7,5 +7,5 @@ public interface IUserService
 {
     IEnumerable<User> FilterByActive(bool isActive);
     IEnumerable<User> GetAll();
-    User? GetUserById(int id);
+    User? GetUserById(long id);
 }

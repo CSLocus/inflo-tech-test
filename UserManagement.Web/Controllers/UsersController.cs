@@ -28,7 +28,7 @@ public class UsersController(IUserService userService) : Controller
     }
 
     [HttpGet("{userId}")]
-    public ViewResult ViewUser(int userId)
+    public ViewResult ViewUser(long userId)
     {
         var user = userService.GetUserById(userId);
 

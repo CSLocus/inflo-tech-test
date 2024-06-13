@@ -13,7 +13,7 @@ public class UserService(IDataContext dataAccess) : IUserService
         return dataAccess.GetAll<User>().Where(x => x.IsActive == isActive);
     }
 
-    public User? GetUserById(int id)
+    public User? GetUserById(long id)
     {
         return dataAccess.GetAll<User>().Where(x => x.Id == id).FirstOrDefault();
     }

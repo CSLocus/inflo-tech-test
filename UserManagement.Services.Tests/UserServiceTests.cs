@@ -11,14 +11,11 @@ public class UserServiceTests
     [Fact]
     public void GetAll_WhenContextReturnsEntities_MustReturnSameEntities()
     {
-        // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
         var service = CreateService();
         var users = SetupUsers();
 
-        // Act: Invokes the method under test with the arranged parameters.
         var result = service.GetAll();
 
-        // Assert: Verifies that the action of the method under test behaves as expected.
         result.Should().BeSameAs(users);
     }
 
@@ -27,15 +24,35 @@ public class UserServiceTests
     [InlineData(false)]
     public void FilterByActive_WhenContextReturnsEntities_MustReturnSameEntities_DependingOnIsActive(bool isActive)
     {
-        // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
         var service = CreateService();
         var users = SetupUsers();
 
-        // Act: Invokes the method under test with the arranged parameters.
         var result = service.FilterByActive(isActive);
 
-        // Assert: Verifies that the action of the method under test behaves as expected.
         result.Should().BeEquivalentTo(users.Where(x => x.IsActive == isActive));
+    }
+
+
+    [Fact]
+    public void GetUserById_WhenContextReturnsUser_MustReturnUser()
+    {
+        var service = CreateService();
+        var users = SetupUsers();
+
+        var result = service.GetUserById(users.First().Id);
+
+        result.Should().Be(users.First());
+    }
+
+    [Fact]
+    public void GetUserById_WhenContextReturnsNull_MustReturnNull()
+    {
+        var service = CreateService();
+        SetupUsers();
+
+        var result = service.GetUserById(999);
+
+        result.Should().BeNull();
     }
 
     private IQueryable<User> SetupUsers()
