@@ -1,0 +1,55 @@
+﻿@model UserManagement.Web.Models.Users.EditUserModel
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Users" asp-action="List">Users</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add</li>
+        <li class="breadcrumb-item active" aria-current="page">New User</li>
+    </ol>
+</nav>
+
+<h2 class="mb-5">Adding a new user</h2>
+
+<form asp-controller="Users" asp-action="AddUser">
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+
+        <div class="form-group col-12 col-sm-6 col-md-3 mb-3">
+            <label asp-for="IsActive" class="form-label">Active</label>
+            <input asp-for="IsActive" type="checkbox" class="form-check-input form-control custom-checkbox">
+        </div>
+
+        <div class="form-group col-12 col-sm-6 col-md-9 mb-3">
+            <label asp-for="Email" class="form-label">Email Address</label>
+            <input asp-for="Email" type="text" class="form-control">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-12 col-sm-4 mb-3">
+            <label asp-for="Forename" class="form-label">Forename</label>
+            <input asp-for="Forename" type="text" class="form-control">
+            <span asp-validation-for="Forename" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-12 col-sm-4 mb-3">
+            <label asp-for="Surname" class="form-label">Surname</label>
+            <input asp-for="Surname" type="text" class="form-control">
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-12 col-sm-4 mb-3">
+            <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+            <input asp-for="DateOfBirth" type="date" class="form-control">
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 text-center">
+            <a asp-controller="Users" asp-action="List" class="btn btn-primary"><i class="bx bx-chevron-left bx-sm align-middle"></i>Return to List</a>
+            <button type="submit" class="btn btn-success ms-2"><i class="bx bx-pencil bx-sm align-middle"></i>Add User</button>
+        </div>
+
+    </div>
+
+</form>

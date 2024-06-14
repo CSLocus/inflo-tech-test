@@ -19,4 +19,14 @@ public class UserService(IDataContext dataAccess) : IUserService
     }
 
     public IEnumerable<User> GetAll() => dataAccess.GetAll<User>();
+
+    public void AddUser(User newUser)
+    {
+        dataAccess.Create(newUser);
+    }
+
+    public void UpdateUser(User updatedUser)
+    {
+        dataAccess.Update(updatedUser);
+    }
 }

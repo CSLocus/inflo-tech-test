@@ -4,12 +4,6 @@
     bool? isActive = ViewBag.IsActive as bool?;
 }
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Home</li>
-    </ol>
-</nav>
-
 <h2>User List</h2>
 
 <div class="table-responsive">
@@ -20,7 +14,7 @@
                 <th>Forename</th>
                 <th>Surname</th>
                 <th>Email</th>
-                <th>Date of Birth</th>
+                <th class="text-center">Date of Birth</th>
                 <th class="text-center">Account Active</th>
                 <th class="text-center" style="width: 1px;">Edit</th>
             </tr>
@@ -41,14 +35,14 @@
                     <td>
                         @item.Email
                     </td>
-                    <td>
-                        @item.DateOfBirth.ToString("yyyy-MM-dd")
+                    <td class="text-center">
+                        @item.DateOfBirth.ToString("dd/MM/yyyy")
                     </td>
                     <td class="text-center">
                         <i class="bx bx-md @(item.IsActive ? "bx-check text-success" : "bx-x text-danger")"></i>
                     </td>
                     <td class="text-center">
-                        <a asp-controller="Users" asp-action="ViewUser" asp-route-userId="@item.Id"><i class="bx bx-md bx-edit text-primary"></i></a>
+                        <a asp-controller="Users" asp-action="ViewEditUserPage" asp-route-userId="@item.Id"><i class="bx bx-md bx-edit text-primary"></i></a>
                     </td>
                 </tr>
             }
@@ -63,7 +57,7 @@
         <a asp-controller="Users" asp-action="List" asp-route-isactive="false" class="btn @(isActive == false ? "btn-primary" : "btn-outline-primary")">Non Active</a>
     </div>
 
-    <a href="#" class="btn btn-primary float-end">
-        Add User
+    <a asp-controller="Users" asp-action="ViewAddUserScreen" class="btn btn-success float-end">
+        <i class="bx bx-plus bx-sm align-middle"></i> Add User
     </a>
 </div>

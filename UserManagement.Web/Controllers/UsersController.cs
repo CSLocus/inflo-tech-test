@@ -27,8 +27,35 @@ public class UsersController(IUserService userService) : Controller
         return View(new UserListViewModel { Items = items.ToList() });
     }
 
+    [HttpGet("/add-user")]
+    public ViewResult ViewAddUserScreen()
+    {
+        return View("AddUser");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult AddUser(EditUserModel user)
+    {
+        if (ModelState.IsValid)
+        {
+            userService.AddUser(new User()
+            {
+                Forename = user.Forename,
+                Surname = user.Surname,
+                Email = user.Email,
+                DateOfBirth = user.DateOfBirth,
+                IsActive = user.IsActive,
+            });
+
+            return RedirectToAction("List");
+        }
+
+        return View(user);
+    }
+
     [HttpGet("{userId}")]
-    public ViewResult ViewUser(long userId)
+    public ViewResult ViewEditUserPage(long userId)
     {
         var user = userService.GetUserById(userId);
 
@@ -37,7 +64,7 @@ public class UsersController(IUserService userService) : Controller
             return View("404");
         }
 
-        var userViewModel = new UserViewModel()
+        var userViewModel = new EditUserModel()
         {
             Id = user.Id,
             Forename = user.Forename,
@@ -47,7 +74,34 @@ public class UsersController(IUserService userService) : Controller
             DateOfBirth = user.DateOfBirth,
         };
 
-        return View(userViewModel);
+        return View("EditUser", userViewModel);
+    }
+
+    [HttpPost("{userId}")]
+    [ValidateAntiForgeryToken]
+    public IActionResult EditUser(long userId, EditUserModel user)
+    {
+        if (userId != user.Id)
+        {
+            return View("404");
+        }
+
+        if (ModelState.IsValid)
+        {
+            userService.UpdateUser(new User()
+            {
+                Id = user.Id,
+                Forename = user.Forename,
+                Surname = user.Surname,
+                Email = user.Email,
+                DateOfBirth = user.DateOfBirth,
+                IsActive = user.IsActive,
+            });
+
+            return RedirectToAction("List");
+        }
+
+        return View(user);
     }
 
     private static UserListItemViewModel MapToViewModel(User user) => new()

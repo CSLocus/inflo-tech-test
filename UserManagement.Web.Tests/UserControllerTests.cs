@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
@@ -51,7 +50,7 @@ public class UserControllerTests
             .Setup(s => s.GetUserById(users.First().Id))
             .Returns(users.First());
 
-        var result = controller.ViewUser(users.First().Id);
+        var result = controller.ViewEditUserPage(users.First().Id);
 
         result.Model
             .Should().BeOfType<UserViewModel>()
@@ -68,7 +67,7 @@ public class UserControllerTests
             .Setup(s => s.GetUserById(users.First().Id))
             .Returns(null as User);
 
-        var result = controller.ViewUser(users.First().Id);
+        var result = controller.ViewEditUserPage(users.First().Id);
 
         // Ensure that we are not loading the edit user page, and instead are displaying the 404 error
         result.Model.Should().BeNull();

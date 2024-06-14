@@ -1,0 +1,62 @@
+﻿@model UserManagement.Web.Models.Users.EditUserModel
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Users" asp-action="List">Users</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+        <li class="breadcrumb-item active" aria-current="page">User @Model.Id</li>
+    </ol>
+</nav>
+
+<h2 class="mb-5">Editing User with ID @Model.Id</h2>
+
+
+<form asp-controller="Users" asp-action="EditUser" asp-route-userId="@Model.Id">
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+
+        <div class="form-group col-12 col-sm-6 col-md-3 mb-3">
+            <label asp-for="Id" class="form-label">ID</label>
+            <input asp-for="Id" type="text" class="form-control" readonly>
+        </div>
+
+        <div class="form-group col-12 col-sm-6 col-md-3 mb-3">
+            <label asp-for="IsActive" class="form-label">Active</label>
+            <input asp-for="IsActive" type="checkbox" class="form-check-input form-control custom-checkbox">
+        </div>
+
+        <div class="form-group col-12 col-sm-6 col-md-6 mb-3">
+            <label asp-for="Email" class="form-label">Email Address</label>
+            <input asp-for="Email" type="text" class="form-control">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-12 col-sm-4 mb-3">
+            <label asp-for="Forename" class="form-label">Forename</label>
+            <input asp-for="Forename" type="text" class="form-control">
+            <span asp-validation-for="Forename" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-12 col-sm-4 mb-3">
+            <label asp-for="Surname" class="form-label">Surname</label>
+            <input asp-for="Surname" type="text" class="form-control">
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-12 col-sm-4 mb-3">
+            <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+            <input asp-for="DateOfBirth" type="date" class="form-control">
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <div class="col-12 text-center">
+        <a asp-controller="Users" asp-action="List" class="btn btn-primary"><i class="bx bx-chevron-left bx-sm align-middle"></i>Return to List</a>
+        <button type="submit" class="btn btn-success ms-2"><i class="bx bx-pencil bx-sm align-middle"></i>Submit Changes</button>
+        <a class="btn btn-danger ms-2"><i class="bx bx-trash bx-sm align-middle"></i>Delete User</a>
+    </div>
+
+</form>
