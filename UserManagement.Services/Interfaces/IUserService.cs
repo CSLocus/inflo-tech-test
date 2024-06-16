@@ -10,4 +10,5 @@ public interface IUserService
     User? GetUserById(long id);
     void AddUser(User newUser);
     void UpdateUser(User editedUser);
+    void DeleteUserById(long userId);
 }

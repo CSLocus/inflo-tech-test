@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UserManagement.Data;
 using UserManagement.Models;
@@ -15,6 +16,7 @@ public class UserService(IDataContext dataAccess) : IUserService
 
     public User? GetUserById(long id)
     {
+        ArgumentNullException.ThrowIfNull(id);
         return dataAccess.GetAll<User>().Where(x => x.Id == id).FirstOrDefault();
     }
 
@@ -22,11 +24,23 @@ public class UserService(IDataContext dataAccess) : IUserService
 
     public void AddUser(User newUser)
     {
+        ArgumentNullException.ThrowIfNull(newUser);
         dataAccess.Create(newUser);
     }
 
     public void UpdateUser(User updatedUser)
     {
+        ArgumentNullException.ThrowIfNull(updatedUser);
         dataAccess.Update(updatedUser);
+    }
+
+    public void DeleteUserById(long userId)
+    {
+        ArgumentNullException.ThrowIfNull(userId);
+
+        var user = GetUserById(userId);
+        if (user is null) throw new KeyNotFoundException($"User with ID {userId} not found");
+
+        dataAccess.Delete(user);
     }
 }

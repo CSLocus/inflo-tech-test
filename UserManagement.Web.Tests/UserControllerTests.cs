@@ -41,7 +41,7 @@ public class UserControllerTests
     }
 
     [Fact]
-    public void ViewUser_WhenServiceReturnsUser_ModelMustBeCorrectUser()
+    public void EditUser_WhenServiceReturnsUser_ModelMustBeCorrectUser()
     {
         var controller = CreateController();
         var users = SetupUsers();
@@ -53,12 +53,12 @@ public class UserControllerTests
         var result = controller.ViewEditUserPage(users.First().Id);
 
         result.Model
-            .Should().BeOfType<UserViewModel>()
+            .Should().BeOfType<EditUserModel>()
             .Which.Should().BeEquivalentTo(users.First());
     }
 
     [Fact]
-    public void ViewUser_WhenServiceReturnsNull_ModelMustBeCorrectUser()
+    public void EditUser_WhenServiceReturnsNull_ModelMustBeNull_And404ViewLoaded()
     {
         var controller = CreateController();
         var users = SetupUsers();

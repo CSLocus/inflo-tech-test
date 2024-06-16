@@ -1,5 +1,9 @@
 ﻿@model UserManagement.Web.Models.Users.EditUserModel
 
+@{
+    ViewData["Title"] = $"Adding user";
+}
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-controller="Users" asp-action="List">Users</a></li>

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Http.HttpResults;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
@@ -102,6 +103,16 @@ public class UsersController(IUserService userService) : Controller
         }
 
         return View(user);
+    }
+
+
+    [HttpDelete("{userId}")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteUser(long userId)
+    {
+        userService.DeleteUserById(userId);
+
+        return Ok();
     }
 
     private static UserListItemViewModel MapToViewModel(User user) => new()

@@ -1,7 +1,9 @@
 ﻿@model UserManagement.Web.Models.Users.UserListViewModel
 
 @{
-    bool? isActive = ViewBag.IsActive as bool?;
+    ViewData["Title"] = "Viewing users";
+
+    bool? isActive = ViewBag.IsActive as bool?;    
 }
 
 <h2>User List</h2>
