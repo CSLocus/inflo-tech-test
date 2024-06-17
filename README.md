@@ -1,65 +1,29 @@
-# User Management Technical Exercise
+Hey! Thanks for taking the time to read this.
 
-The exercise is an ASP.NET Core web application backed by Entity Framework Core, which faciliates management of some fictional users.
-We recommend that you use [Visual Studio (Community Edition)](https://visualstudio.microsoft.com/downloads) or [Visual Studio Code](https://code.visualstudio.com/Download) to run and modify the application. 
+I'd just like to preface this by saying I've been a backend developer for the past 2-3 years, so a return to full-stack feels quite nice although my skills were definitely rusty. 
+I've actually developed a product pretty much identical to this and can show this off in any next stage interview - it uses Identity Server to handle authorisation + authentication.
 
-**The application uses an in-memory database, so changes will not be persisted between executions.**
+Unfortunately due to time constraints I'm unable to complete task 4 or rewrite the application in Blazor - but this is definitely doable. 
 
-## The Exercise
-Complete as many of the tasks below as you feel comfortable with. These are split into 4 levels of difficulty 
-* **Standard** - Functionality that is common when working as a web developer
-* **Advanced** - Slightly more technical tasks and problem solving
-* **Expert** - Tasks with a higher level of problem solving and architecture needed
-* **Platform** - Tasks with a focus on infrastructure and scaleability, rather than application development.
+I've summarised my thoughts/ progress below, so if I'm successful in this stage we can definitely discuss the following if needed.
 
-### 1. Filters Section (Standard)
+- Upgraded to .NET 8 for LTS, as well as primary constructor and Argument.ThrowIfNull functionality
 
-The users page contains 3 buttons below the user listing - **Show All**, **Active Only** and **Non Active**. Show All has already been implemented. Implement the remaining buttons using the following logic:
-* Active Only – This should show only users where their `IsActive` property is set to `true`
-* Non Active – This should show only users where their `IsActive` property is set to `false`
+- Could have implemented Bogus for fake data generation but seems a bit overkill for this app in particular
 
-### 2. User Model Properties (Standard)
+- Delete, view, edit user should all be the same screen - Delete is effectively editing a user, viewing a user should have the same data as an edit screen
 
-Add a new property to the `User` class in the system called `DateOfBirth` which is to be used and displayed in relevant sections of the app.
+- There is no need to implement a 'GetById' functionality in the data context layer, as we are still working with IQueryable in the service layer
 
-### 3. Actions Section (Standard)
+- A datagrid component would have been a good shout for the user list, but it seemed a little heavyweight for something with so few records. If looking to scale definitely an option to look into
 
-Create the code and UI flows for the following actions
-* **Add** – A screen that allows you to create a new user and return to the list
-* **View** - A screen that displays the information about a user
-* **Edit** – A screen that allows you to edit a selected user from the list  
-* **Delete** – A screen that allows you to delete a selected user from the list
+- I was going to implement Identity Server, Auth0 or Keycloak but unfortunately can't spend any longer on the project. I have demonstrable experience in this field and a proven track record of leading projects focused around these technologies.
 
-Each of these screens should contain appropriate data validation, which is communicated to the end user.
+- I've added CI that runs upon a PR being created, you can see this if you view the active PR
 
-### 4. Data Logging (Advanced)
+- I don't have the capacity to have a test azure instance set up for this to deploy to - but if I did I'd have secrets in KeyVault and deployment slots as well.
 
-Extend the system to capture log information regarding primary actions performed on each user in the app.
-* In the **View** screen there should be a list of all actions that have been performed against that user. 
-* There should be a new **Logs** page, containing a list of log entries across the application.
-* In the Logs page, the user should be able to click into each entry to see more detail about it.
-* In the Logs page, think about how you can provide a good user experience - even when there are many log entries.
+I've added the following libraries/ tools:
 
-### 5. Extend the Application (Expert)
-
-Make a significant architectural change that improves the application.
-Structurally, the user management application is very simple, and there are many ways it can be made more maintainable, scalable or testable.
-Some ideas are:
-* Re-implement the UI using a client side framework connecting to an API. Use of Blazor is preferred, but if you are more familiar with other frameworks, feel free to use them.
-* Update the data access layer to support asynchronous operations.
-* Implement authentication and login based on the users being stored.
-* Implement bundling of static assets.
-* Update the data access layer to use a real database, and implement database schema migrations.
-
-### 6. Future-Proof the Application (Platform)
-
-Add additional layers to the application that will ensure that it is scaleable with many users or developers. For example:
-* Add CI pipelines to run tests and build the application.
-* Add CD pipelines to deploy the application to cloud infrastructure.
-* Add IaC to support easy deployment to new environments.
-* Introduce a message bus and/or worker to handle long-running operations.
-
-## Additional Notes
-
-* Please feel free to change or refactor any code that has been supplied within the solution and think about clean maintainable code and architecture when extending the project.
-* If any additional packages, tools or setup are required to run your completed version, please document these thoroughly.
+- .NET 8
+- Boxicon (FontAwesome alternative)
