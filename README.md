@@ -27,3 +27,5 @@ I've added the following libraries/ tools:
 
 - .NET 8
 - Boxicon (FontAwesome alternative)
+
+This was a pretty fun one to be honest, so hopefully I'll hear from you guys soon :)
